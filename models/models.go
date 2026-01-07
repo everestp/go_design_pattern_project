@@ -5,14 +5,14 @@ import (
 	"time"
 )
 
-var db *sql.DB
+var repo Repository
 
 type Models struct {
 	DogBreed DogBreed
 }
 
 func New(conn *sql.DB) *Models {
-	db = conn
+	repo = newMysqlRepository(conn)
 
 	return &Models{
 		DogBreed: DogBreed{},
@@ -32,7 +32,7 @@ type DogBreed struct {
 }
 
 func (d *DogBreed) All() ([]*DogBreed, error) {
-	return d.AllDogBreeds()
+	return repo.AllDogBreeds()
 }
 
 type CatBreed struct {
