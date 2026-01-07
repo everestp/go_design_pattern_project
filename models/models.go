@@ -42,7 +42,7 @@ type Dog struct {
 
 type Cat struct {
 	ID               int       `json:"id"`
-	DogName          string    `json:"dog_name"`
+	CatName          string    `json:"cat_name"`
 	BreedID          int       `json:"breed_id"`
 	BreederID        int       `json:"breeder_id"`
 	Color            string    `json:"color"`
