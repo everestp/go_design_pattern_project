@@ -1,5 +1,4 @@
-age main
-
+package main
 import (
 	"database/sql"
 	"time"
