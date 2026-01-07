@@ -30,3 +30,6 @@ func(app *application) CreadCatFromFactory(w http.ResponseWriter , r *http.Reque
 	_ = t.WriteJSON(w, http.StatusOK , pets.NewPet("cat") )
 	
 }
+func(app *application) TestPattern(w http.ResponseWriter , r *http.Request){
+app.render(w, "test.page.gohtml", nil)
+}
