@@ -1,5 +1,10 @@
 package models
 
-func (m *DogBreed) AllDogBreds() ([]*DogBreed, error) {
+
+func (m *testRepository) AllDogBreeds() ([]*DogBreed, error) {
+	
+
 	return nil, nil
 }
+
+
