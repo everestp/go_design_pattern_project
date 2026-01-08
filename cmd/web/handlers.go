@@ -13,7 +13,6 @@ func (app *application) ShowHome(w http.ResponseWriter, r *http.Request) {
 	app.render(w, "home.page.gohtml", nil)
 }
 
-
 func (app *application) ShowPage(w http.ResponseWriter, r *http.Request) {
 	page := chi.URLParam(r, "page")
 	app.render(w, fmt.Sprintf("%s.page.gohtml", page), nil)
@@ -53,25 +52,34 @@ func (app *application) CreateCatFromAbstractFactory(w http.ResponseWriter, r *h
 	_ = t.WriteJSON(w, http.StatusOK, cat)
 }
 
-
-func (app *application) GetAllDogBreedJSON(w http.ResponseWriter ,   r *http.Request){
+func (app *application) GetAllDogBreedsJSON(w http.ResponseWriter, r *http.Request) {
 	var t toolbox.Tools
-	dogBreeds , err := app.App.Models.DogBreed.All()
+	dogBreeds, err := app.App.Models.DogBreed.All()
 	if err != nil {
 		_ = t.ErrorJSON(w, err, http.StatusBadRequest)
 		return
 	}
-	_ = t.WriteJSON(w, http.StatusOK, dogBreeds)
 
+	_ = t.WriteJSON(w, http.StatusOK, dogBreeds)
 }
 
-// func (app *application) GetAllCatBreedJSON(w http.ResponseWriter ,   r *http.Request){
-// 	var t toolbox.Tools
-// 	dogBreeds , err := app.Models.DogBreed.All()
-// 	if err != nil {
-// 		_ = t.ErrorJSON(w, err, http.StatusBadRequest)
-// 		return
-// 	}
-// 	_ = t.WriteJSON(w, http.StatusOK, dogBreeds)
+func (app *application) CreateDogWithBuilder(w http.ResponseWriter, r *http.Request) {
+	var t toolbox.Tools
 
-// }
+	// create a dog using the builder pattern
+	p, err := pets.NewPetBuilder().
+		SetSpecies("dog").
+		SetBreed("mixed breed").
+		SetWeight(15).
+		SetDescription("A mixed breed of unknown origin. Probably has some German Shepherd heritage.").
+		SetColor("Black and White").
+		SetAge(3).
+		SetAgeEstimated(true).
+		Build()
+
+	if err != nil {
+		_ = t.ErrorJSON(w, err, http.StatusBadRequest)
+	}
+
+	_ = t.WriteJSON(w, http.StatusOK, p)
+}

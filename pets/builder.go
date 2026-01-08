@@ -21,6 +21,10 @@ type PetInterface interface {
 	Build() (*Pet, error)
 }
 
+func NewPetBuilder() PetInterface {
+	return &Pet{}
+}
+
 // SetSpecies sets the species for our pet, and returns a *Pet.
 func (p *Pet) SetSpecies(s string) *Pet {
 	p.Species = s
